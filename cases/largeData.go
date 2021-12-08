@@ -25,7 +25,7 @@ func (g SendingLargeData) Run(c CommonVariables) (v CommonVariables, msg string,
 		return v, msg, fmt.Errorf("missing test client address")
 	}
 	dur, err := sendData(c.TestClientAddr, c.DataSize)
-	return c, fmt.Sprintf("sending ⬆ %d Bytes duration : %d ms", c.DataSize, dur), err
+	return c, fmt.Sprintf("sending ⬆ %d Bytes duration: %d ms", c.DataSize, dur), err
 }
 
 func (g SendingLargeData) Title() string {
@@ -40,7 +40,7 @@ func (g MirrorLargeData) Run(c CommonVariables) (v CommonVariables, msg string, 
 		return v, msg, fmt.Errorf("missing test client address")
 	}
 	dur, err := sendMirror(c.TestClientAddr, c.DataSize)
-	return c, fmt.Sprintf("full proccessing ⬆ %d Bytes ⬇ %d KB duration: %d ms", c.DataSize, c.DataSize, dur), err
+	return c, fmt.Sprintf("full proccessing ⬆ %d Bytes ⬇ %d Bytes duration: %d ms", c.DataSize, c.DataSize, dur), err
 }
 
 func (g MirrorLargeData) Title() string {
