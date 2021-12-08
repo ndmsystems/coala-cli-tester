@@ -12,6 +12,9 @@ func (g P2PClientConnection) Run(c CommonVariables) (v CommonVariables, msg stri
 		return v, msg, fmt.Errorf("missing gum address")
 	}
 	c.P2PSession, err = gumSession(c.CID, c.P2PClientCID, c.GumAddr)
+	if !c.P2PSession.Online {
+		return c, msg, fmt.Errorf("p2p client offline")
+	}
 	return c, "p2p client address: " + c.P2PSession.Address, err
 }
 
