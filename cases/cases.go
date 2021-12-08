@@ -15,4 +15,5 @@ type CommonVariables struct {
 	AccountInfo    string
 	TestClientAddr string
 	TestClientInfo string
+	DataSize       int
 }

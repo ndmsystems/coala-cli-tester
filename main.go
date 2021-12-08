@@ -30,6 +30,8 @@ func main() {
 	)
 
 	flag.StringVar(&vars.CID, "cid", "", "CID for this testing client. If empty then will be setted randomly CID.")
+	flag.IntVar(&vars.DataSize, "size", 512*1024, "Size of payload in bytes for large data tests.")
+
 	flag.Parse()
 
 	if vars.CID == "" {

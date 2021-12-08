@@ -22,4 +22,6 @@ Just run it
 Usage of ./coala-cli-tester:
   -cid string
         CID for this testing client. If empty then will be setted randomly CID.
+  -size int
+        Size of payload in bytes for large data tests. (default 524288)
 ```

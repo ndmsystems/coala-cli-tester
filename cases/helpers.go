@@ -36,10 +36,10 @@ func getServiceInfo(serviceAddr string) (info string, err error) {
 	return string(resp.Body), nil
 }
 
-func downloadData(addr string) (duration int64, err error) {
+func downloadData(addr string, size int) (duration int64, err error) {
 	now := time.Now()
 	resp, err := coalago.NewClient().GET(
-		fmt.Sprintf("coaps://%s/tests/large?size=%d", addr, 512*1024),
+		fmt.Sprintf("coaps://%s/tests/large?size=%d", addr, size),
 	)
 	if err != nil {
 		return 0, fmt.Errorf("get request by coala: %s", err)
@@ -54,8 +54,8 @@ func downloadData(addr string) (duration int64, err error) {
 	return duration, nil
 }
 
-func sendData(addr string) (duration int64, err error) {
-	data := make([]byte, 512*1024)
+func sendData(addr string, size int) (duration int64, err error) {
+	data := make([]byte, size)
 	_, err = rand.Read(data)
 	if err != nil {
 		return 0, fmt.Errorf("generate payload: %s", err)
@@ -78,8 +78,8 @@ func sendData(addr string) (duration int64, err error) {
 	return duration, nil
 }
 
-func sendMirror(addr string) (duration int64, err error) {
-	data := make([]byte, 512*1024)
+func sendMirror(addr string, size int) (duration int64, err error) {
+	data := make([]byte, size)
 	_, err = rand.Read(data)
 	if err != nil {
 		return 0, fmt.Errorf("generate payload: %s", err)
