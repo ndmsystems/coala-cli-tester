@@ -31,6 +31,7 @@ func main() {
 
 	flag.StringVar(&vars.CID, "cid", "", "CID for this testing client. If empty then will be setted randomly CID.")
 	flag.IntVar(&vars.DataSize, "size", 512*1024, "Size of payload in bytes for large data tests.")
+	flag.StringVar(&vars.P2PClientCID, "p2p-client", "test1", "CID of p2p client")
 
 	flag.Parse()
 
@@ -38,7 +39,10 @@ func main() {
 		vars.CID = uuid.New().String()
 	}
 
-	fmt.Printf("\nKeenetic test page starting with CID: %s\n\n", vars.CID)
+	fmt.Printf("\nKeenetic test page starting\n\n"+
+		"CID: %s\n"+
+		"P2P Client CID: %s\n"+
+		"Large data size: %d Bytes\n\n", vars.CID, vars.P2PClientCID, vars.DataSize)
 
 	for i, caseItem := range casesList {
 		space := "  "

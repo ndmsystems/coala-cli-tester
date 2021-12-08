@@ -22,6 +22,8 @@ Just run it
 Usage of ./coala-cli-tester:
   -cid string
         CID for this testing client. If empty then will be setted randomly CID.
+  -p2p-client string
+        CID of p2p client (default "test1")
   -size int
         Size of payload in bytes for large data tests. (default 524288)
 ```

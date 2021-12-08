@@ -7,6 +7,7 @@ type CaseRunner interface {
 
 type CommonVariables struct {
 	CID           string
+	P2PClientCID  string
 	GumAddr       string
 	GumInfo       string
 	DataAddr      string
