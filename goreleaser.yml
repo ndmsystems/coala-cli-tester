@@ -1,0 +1,15 @@
+builds:
+  - id: coala-cli-tester
+    main: ./main.go
+    binary: coala-cli-tester
+    goos:
+      - darwin
+      - linux
+      - windows
+    goarch:
+      - amd64
+      - arm64
+      - arm
+
+archives:
+- format: binary
