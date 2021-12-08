@@ -21,11 +21,11 @@ func main() {
 			cases.GettingDataInfo{},
 			cases.GettingAccountAddr{},
 			cases.GettingAccountInfo{},
-			cases.GettingTestClientAddr{},
-			cases.GettingTestClientInfo{},
-			cases.GettingLargeData{},
-			cases.SendingLargeData{},
-			cases.MirrorLargeData{},
+			cases.P2PClientConnection{},
+			cases.P2PClientInfo{},
+			cases.P2PGettingLargeData{},
+			cases.P2PSendingLargeData{},
+			cases.P2PMirrorLargeData{},
 		}
 	)
 

@@ -2,6 +2,7 @@ package cases
 
 import (
 	"crypto/rand"
+	"encoding/json"
 	"fmt"
 	"time"
 
@@ -100,4 +101,24 @@ func sendMirror(addr string, size int) (duration int64, err error) {
 	duration = time.Since(now).Milliseconds()
 
 	return duration, nil
+}
+
+func gumSession(cid, peerCid, gumAddr string) (s SessionData, err error) {
+	resp, err := coalago.NewClient().GET(
+		fmt.Sprintf("coaps://%s/session?cid=%s&peer_cid=%s", gumAddr, cid, peerCid),
+	)
+	if err != nil {
+		return s, fmt.Errorf("get request by coala: %s", err)
+	}
+
+	if resp.Code != coalago.CoapCodeContent {
+		return s, fmt.Errorf("invalid response code %s with payload: %s", resp.Code.String(), string(resp.Body))
+	}
+
+	err = json.Unmarshal(resp.Body, &s)
+	if err != nil {
+		return s, fmt.Errorf("unmarshal json: %s with payload: %s", err, string(resp.Body))
+	}
+
+	return s, nil
 }
