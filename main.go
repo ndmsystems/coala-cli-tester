@@ -26,12 +26,15 @@ func main() {
 			cases.P2PGettingLargeData{},
 			cases.P2PSendingLargeData{},
 			cases.P2PMirrorLargeData{},
+			cases.ProxyClientConnection{},
+			cases.ProxyClientInfo{},
 		}
 	)
 
 	flag.StringVar(&vars.CID, "cid", "", "CID for this testing client. If empty then will be setted randomly CID.")
 	flag.IntVar(&vars.DataSize, "size", 512*1024, "Size of payload in bytes for large data tests.")
 	flag.StringVar(&vars.P2PClientCID, "p2p-client", "test1", "CID of p2p client")
+	flag.StringVar(&vars.ProxyClientCID, "proxy-client", "nat1", "CID of proxy client")
 
 	flag.Parse()
 
@@ -42,7 +45,8 @@ func main() {
 	fmt.Printf("\nKeenetic test page starting\n\n"+
 		"CID: %s\n"+
 		"P2P Client CID: %s\n"+
-		"Large data size: %d Bytes\n\n", vars.CID, vars.P2PClientCID, vars.DataSize)
+		"Proxy Client CID: %s\n"+
+		"Large data size: %d Bytes\n\n", vars.CID, vars.P2PClientCID, vars.ProxyClientCID, vars.DataSize)
 
 	for i, caseItem := range casesList {
 		space := "  "

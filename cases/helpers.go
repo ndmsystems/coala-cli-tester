@@ -4,6 +4,7 @@ import (
 	"crypto/rand"
 	"encoding/json"
 	"fmt"
+	"strings"
 	"time"
 
 	"github.com/coalalib/coalago"
@@ -35,6 +36,38 @@ func getServiceInfo(serviceAddr string) (info string, err error) {
 	}
 
 	return string(resp.Body), nil
+}
+
+func getServiceInfoViaProxy(s SessionData) (info string, err error) {
+	msg := coalago.NewCoAPMessage(coalago.CON, coalago.GET)
+	msg.SetURIPath("/info")
+	msg.SetSchemeCOAPS()
+
+	resp, err := sendViaProxy(msg, s.Address, s.Proxy)
+	if err != nil {
+		return "", fmt.Errorf("get request by coala: %s", err)
+	}
+
+	if resp.Code != coalago.CoapCodeContent {
+		return "", fmt.Errorf("invalid response code %s with payload: %s", resp.Code.String(), string(resp.Body))
+	}
+
+	return string(resp.Body), nil
+}
+
+func sendViaProxy(message *coalago.CoAPMessage, addr, proxy string) (resp *coalago.Response, err error) {
+	escapeQueryMessage(message)
+	message.SetProxy(message.GetSchemeString(), addr)
+	return coalago.NewClient().Send(message, proxy)
+}
+
+func escapeQueryMessage(message *coalago.CoAPMessage) {
+	queries := message.GetURIQueryArray()
+	message.RemoveOptions(coalago.OptionURIQuery)
+	for _, v := range queries {
+		kv := strings.SplitN(v, "=", 2)
+		message.SetURIQuery(kv[0], kv[1])
+	}
 }
 
 func downloadData(addr string, size int) (duration int64, err error) {

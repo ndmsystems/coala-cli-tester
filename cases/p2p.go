@@ -26,8 +26,8 @@ type P2PClientInfo struct {
 }
 
 func (g P2PClientInfo) Run(c CommonVariables) (v CommonVariables, msg string, err error) {
-	if c.GumAddr == "" {
-		return v, msg, fmt.Errorf("missing gum address")
+	if c.P2PSession.Address == "" {
+		return v, msg, fmt.Errorf("missing p2p connection")
 	}
 	c.P2PClientInfo, err = getServiceInfo(c.P2PSession.Address)
 	return c, "p2p client info: " + c.P2PClientInfo, err
