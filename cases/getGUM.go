@@ -25,8 +25,8 @@ func (g GettingGUMInfo) Run(c CommonVariables) (v CommonVariables, msg string, e
 	if c.GumAddr == "" {
 		return v, msg, fmt.Errorf("missing gum address")
 	}
-	c.GumInfo, err = getServiceInfo(c.GumAddr)
-	return c, "gum info: " + c.GumInfo, err
+	info, err := getServiceInfo(c.GumAddr)
+	return c, "gum info: " + info, err
 }
 
 func (g GettingGUMInfo) Title() string {

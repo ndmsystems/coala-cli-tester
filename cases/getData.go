@@ -24,8 +24,8 @@ func (g GettingDataInfo) Run(c CommonVariables) (v CommonVariables, msg string, 
 	if c.DataAddr == "" {
 		return v, msg, fmt.Errorf("missing data address")
 	}
-	c.DataInfo, err = getServiceInfo(c.DataAddr)
-	return c, "data info: " + c.DataInfo, err
+	info, err := getServiceInfo(c.DataAddr)
+	return c, "data info: " + info, err
 }
 
 func (g GettingDataInfo) Title() string {

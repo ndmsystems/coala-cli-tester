@@ -24,8 +24,8 @@ func (g GettingAccountInfo) Run(c CommonVariables) (v CommonVariables, msg strin
 	if c.AccountAddr == "" {
 		return v, msg, fmt.Errorf("missing account address")
 	}
-	c.AccountInfo, err = getServiceInfo(c.AccountAddr)
-	return c, "account info: " + c.AccountInfo, err
+	info, err := getServiceInfo(c.AccountAddr)
+	return c, "account info: " + info, err
 }
 
 func (g GettingAccountInfo) Title() string {

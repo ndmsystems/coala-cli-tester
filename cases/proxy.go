@@ -29,8 +29,8 @@ func (g ProxyClientInfo) Run(c CommonVariables) (v CommonVariables, msg string, 
 	if c.ProxySession.Address == "" {
 		return v, msg, fmt.Errorf("missing proxy connection")
 	}
-	c.ProxyClientInfo, err = getServiceInfoViaProxy(c.ProxySession)
-	return c, "proxy client info: " + c.ProxyClientInfo, err
+	info, err := getServiceInfoViaProxy(c.ProxySession)
+	return c, "proxy client info: " + info, err
 }
 
 func (g ProxyClientInfo) Title() string {

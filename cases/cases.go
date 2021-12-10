@@ -6,20 +6,18 @@ type CaseRunner interface {
 }
 
 type CommonVariables struct {
-	CID             string
-	ProxyClientCID  string
-	P2PClientCID    string
-	GumAddr         string
-	GumInfo         string
-	DataAddr        string
-	DataInfo        string
-	AccountAddr     string
-	AccountInfo     string
-	P2PClientInfo   string
-	ProxyClientInfo string
-	DataSize        int
-	P2PSession      SessionData
-	ProxySession    SessionData
+	CID            string
+	ProxyClientCID string
+	P2PClientCID   string
+
+	DataSize int
+
+	GumAddr     string
+	DataAddr    string
+	AccountAddr string
+
+	P2PSession   SessionData
+	ProxySession SessionData
 }
 
 type SessionData struct {

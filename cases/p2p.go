@@ -29,8 +29,8 @@ func (g P2PClientInfo) Run(c CommonVariables) (v CommonVariables, msg string, er
 	if c.P2PSession.Address == "" {
 		return v, msg, fmt.Errorf("missing p2p connection")
 	}
-	c.P2PClientInfo, err = getServiceInfo(c.P2PSession.Address)
-	return c, "p2p client info: " + c.P2PClientInfo, err
+	info, err := getServiceInfo(c.P2PSession.Address)
+	return c, "p2p client info: " + info, err
 }
 
 func (g P2PClientInfo) Title() string {
