@@ -12,6 +12,7 @@ type CommonVariables struct {
 
 	DataSize int
 
+	MasterAddr  string
 	GumAddr     string
 	DataAddr    string
 	AccountAddr string

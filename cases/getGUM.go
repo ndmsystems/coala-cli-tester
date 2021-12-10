@@ -10,7 +10,7 @@ type GettingGUMAddr struct {
 }
 
 func (g GettingGUMAddr) Run(c CommonVariables) (v CommonVariables, msg string, err error) {
-	c.GumAddr, err = getGumAddrFromMaster(c.CID)
+	c.GumAddr, err = getGumAddrFromMaster(c.MasterAddr, c.CID)
 	return c, "gum address: " + c.GumAddr, err
 }
 
@@ -33,8 +33,8 @@ func (g GettingGUMInfo) Title() string {
 	return "Get GUM info"
 }
 
-func getGumAddrFromMaster(cid string) (gumAddr string, err error) {
-	resp, err := http.Get("https://master.keenetic.cloud:8082/?cid=" + cid)
+func getGumAddrFromMaster(addr, cid string) (gumAddr string, err error) {
+	resp, err := http.Get(addr + "/?cid=" + cid)
 	if err != nil {
 		return "", fmt.Errorf("get request by HTTP: %s", err)
 	}

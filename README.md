@@ -22,6 +22,8 @@ Just run it
 Usage of ./coala-cli-tester:
   -cid string
         CID for this testing client. If empty then will be setted randomly CID.
+  -master string
+        Address of master service (default "https://master.keenetic.cloud:8082")
   -p2p-client string
         CID of p2p client (default "test1")
   -proxy-client string
