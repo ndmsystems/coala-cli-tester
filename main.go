@@ -28,6 +28,9 @@ func main() {
 			cases.P2PMirrorLargeData{},
 			cases.ProxyClientConnection{},
 			cases.ProxyClientInfo{},
+			cases.ProxyGettingLargeData{},
+			cases.ProxySendingLargeData{},
+			cases.ProxyMirrorLargeData{},
 		}
 	)
 

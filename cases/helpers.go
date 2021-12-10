@@ -88,6 +88,25 @@ func downloadData(addr string, size int) (duration int64, err error) {
 	return duration, nil
 }
 
+func downloadDataViaProxy(s SessionData, size int) (duration int64, err error) {
+	msg := coalago.NewCoAPMessage(coalago.CON, coalago.GET)
+	msg.SetURIPath("/tests/large")
+	msg.SetURIQuery("size", fmt.Sprint(size))
+	msg.SetSchemeCOAPS()
+
+	now := time.Now()
+	resp, err := sendViaProxy(msg, s.Address, s.Proxy)
+	if err != nil {
+		return 0, fmt.Errorf("get request by coala: %s", err)
+	}
+	if resp.Code != coalago.CoapCodeContent {
+		return 0, fmt.Errorf("invalid response code %s with payload: %s", resp.Code.String(), string(resp.Body))
+	}
+	duration = time.Since(now).Milliseconds()
+
+	return duration, nil
+}
+
 func sendData(addr string, size int) (duration int64, err error) {
 	data := make([]byte, size)
 	_, err = rand.Read(data)
@@ -112,6 +131,33 @@ func sendData(addr string, size int) (duration int64, err error) {
 	return duration, nil
 }
 
+func sendDataViaProxy(s SessionData, size int) (duration int64, err error) {
+	data := make([]byte, size)
+	_, err = rand.Read(data)
+	if err != nil {
+		return 0, fmt.Errorf("generate payload: %s", err)
+	}
+
+	msg := coalago.NewCoAPMessage(coalago.CON, coalago.POST)
+	msg.SetURIPath("/tests/large")
+	msg.Payload = coalago.NewBytesPayload(data)
+	msg.SetSchemeCOAPS()
+
+	now := time.Now()
+	resp, err := sendViaProxy(msg, s.Address, s.Proxy)
+	if err != nil {
+		return 0, fmt.Errorf("post request by coala: %s", err)
+	}
+
+	if resp.Code != coalago.CoapCodeContent {
+		return 0, fmt.Errorf("invalid response code %s with payload: %s", resp.Code.String(), string(resp.Body))
+	}
+
+	duration = time.Since(now).Milliseconds()
+
+	return duration, nil
+}
+
 func sendMirror(addr string, size int) (duration int64, err error) {
 	data := make([]byte, size)
 	_, err = rand.Read(data)
@@ -123,6 +169,33 @@ func sendMirror(addr string, size int) (duration int64, err error) {
 	resp, err := coalago.NewClient().POST(data,
 		fmt.Sprintf("coaps://%s/tests/mirror", addr),
 	)
+	if err != nil {
+		return 0, fmt.Errorf("post request by coala: %s", err)
+	}
+
+	if resp.Code != coalago.CoapCodeContent {
+		return 0, fmt.Errorf("invalid response code %s with payload: %s", resp.Code.String(), string(resp.Body))
+	}
+
+	duration = time.Since(now).Milliseconds()
+
+	return duration, nil
+}
+
+func sendMirrorViaProxy(s SessionData, size int) (duration int64, err error) {
+	data := make([]byte, size)
+	_, err = rand.Read(data)
+	if err != nil {
+		return 0, fmt.Errorf("generate payload: %s", err)
+	}
+
+	msg := coalago.NewCoAPMessage(coalago.CON, coalago.POST)
+	msg.SetURIPath("/tests/mirror")
+	msg.Payload = coalago.NewBytesPayload(data)
+	msg.SetSchemeCOAPS()
+
+	now := time.Now()
+	resp, err := sendViaProxy(msg, s.Address, s.Proxy)
 	if err != nil {
 		return 0, fmt.Errorf("post request by coala: %s", err)
 	}
