@@ -10,7 +10,7 @@ func (g P2PGettingLargeData) Run(c CommonVariables) (v CommonVariables, msg stri
 		return v, msg, fmt.Errorf("missing p2p connection")
 	}
 	dur, err := downloadData(c.P2PSession.Address, c.DataSize)
-	return c, fmt.Sprintf("downloading ⬇ %d Bytes duration: %d ms", c.DataSize, dur), err
+	return c, fmt.Sprintf("downloading ⬇ %d Bytes duration: %d ms, Speed: %s/s", c.DataSize, dur, ByteCountBinary(int64(float64(c.DataSize)/float64(dur)*1000))), err
 }
 
 func (g P2PGettingLargeData) Title() string {
@@ -25,7 +25,7 @@ func (g P2PSendingLargeData) Run(c CommonVariables) (v CommonVariables, msg stri
 		return v, msg, fmt.Errorf("missing p2p connection")
 	}
 	dur, err := sendData(c.P2PSession.Address, c.DataSize)
-	return c, fmt.Sprintf("sending ⬆ %d Bytes duration: %d ms", c.DataSize, dur), err
+	return c, fmt.Sprintf("sending ⬆ %d Bytes duration: %d ms, Speed: %s/s", c.DataSize, dur, ByteCountBinary(int64(float64(c.DataSize)/float64(dur)*1000))), err
 }
 
 func (g P2PSendingLargeData) Title() string {
@@ -40,7 +40,7 @@ func (g P2PMirrorLargeData) Run(c CommonVariables) (v CommonVariables, msg strin
 		return v, msg, fmt.Errorf("missing p2p connection")
 	}
 	dur, err := sendMirror(c.P2PSession.Address, c.DataSize)
-	return c, fmt.Sprintf("full proccessing ⬆ %d Bytes ⬇ %d Bytes duration: %d ms", c.DataSize, c.DataSize, dur), err
+	return c, fmt.Sprintf("full proccessing ⬆ %d Bytes ⬇ %d Bytes duration: %d ms, Speed: %s/s", c.DataSize, c.DataSize, dur, ByteCountBinary(int64(float64(c.DataSize)/float64(dur)*1000))), err
 }
 
 func (g P2PMirrorLargeData) Title() string {

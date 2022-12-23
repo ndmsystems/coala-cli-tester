@@ -6,9 +6,11 @@ import (
 	"fmt"
 
 	"github.com/google/uuid"
+	log "github.com/ndmsystems/golog"
 )
 
 func main() {
+	log.Init("zone", "prod", "name")
 	var (
 		err  error
 		msg  string

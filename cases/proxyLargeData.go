@@ -10,7 +10,7 @@ func (g ProxyGettingLargeData) Run(c CommonVariables) (v CommonVariables, msg st
 		return v, msg, fmt.Errorf("missing proxy connection")
 	}
 	dur, err := downloadDataViaProxy(c.ProxySession, c.DataSize)
-	return c, fmt.Sprintf("downloading ⬇ %d Bytes duration: %d ms", c.DataSize, dur), err
+	return c, fmt.Sprintf("downloading ⬇ %d Bytes duration: %d ms, Speed: %s/s", c.DataSize, dur, ByteCountBinary(int64(float64(c.DataSize)/float64(dur)*1000))), err
 }
 
 func (g ProxyGettingLargeData) Title() string {
@@ -25,7 +25,7 @@ func (g ProxySendingLargeData) Run(c CommonVariables) (v CommonVariables, msg st
 		return v, msg, fmt.Errorf("missing proxy connection")
 	}
 	dur, err := sendDataViaProxy(c.ProxySession, c.DataSize)
-	return c, fmt.Sprintf("sending ⬆ %d Bytes duration: %d ms", c.DataSize, dur), err
+	return c, fmt.Sprintf("sending ⬆ %d Bytes duration: %d ms, Speed: %s/s", c.DataSize, dur, ByteCountBinary(int64(float64(c.DataSize)/float64(dur)*1000))), err
 }
 
 func (g ProxySendingLargeData) Title() string {
@@ -40,7 +40,7 @@ func (g ProxyMirrorLargeData) Run(c CommonVariables) (v CommonVariables, msg str
 		return v, msg, fmt.Errorf("missing proxy connection")
 	}
 	dur, err := sendMirrorViaProxy(c.ProxySession, c.DataSize)
-	return c, fmt.Sprintf("full proccessing ⬆ %d Bytes ⬇ %d Bytes duration: %d ms", c.DataSize, c.DataSize, dur), err
+	return c, fmt.Sprintf("full proccessing ⬆ %d Bytes ⬇ %d Bytes duration: %d ms, Speed: %s/s", c.DataSize, c.DataSize, dur, ByteCountBinary(int64(float64(c.DataSize)/float64(dur)*1000))), err
 }
 
 func (g ProxyMirrorLargeData) Title() string {
