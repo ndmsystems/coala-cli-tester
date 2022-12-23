@@ -38,7 +38,7 @@ func main() {
 	flag.StringVar(&vars.MasterAddr, "master", "https://master.keenetic.cloud:8082", "Address of master service")
 	flag.IntVar(&vars.DataSize, "size", 512*1024, "Size of payload in bytes for large data tests.")
 	flag.StringVar(&vars.P2PClientCID, "p2p-client", "test1", "CID of p2p client")
-	flag.StringVar(&vars.ProxyClientCID, "proxy-client", "nat1", "CID of proxy client")
+	flag.StringVar(&vars.ProxyClientCID, "proxy-client", "test2", "CID of proxy client")
 
 	flag.Parse()
 
