@@ -3,7 +3,7 @@ module coala-cli-tester
 go 1.17
 
 require (
-	github.com/coalalib/coalago v0.0.0-20211207171126-cfbc99e10725
+	github.com/coalalib/coalago v0.0.0-20221221034134-9badc5034f73
 	github.com/google/uuid v1.3.0
 )
 
